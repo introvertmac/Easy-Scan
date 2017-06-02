@@ -5,19 +5,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
-
 site_name=raw_input("enter the website name without https:// or www\n")
-
-
-#print the response headers
-def get_headers():
-  get_headers = requests.get("http://"+str(site_name))
-
-  print '\n',("*" * 10) + "Here are the response headers" + ("*" * 10),"\n"
-  for k in (get_headers.headers):
-    print k, " : ", get_headers.headers[k]
-
-  print "\n"
 
 #Test for Clickjacking protections 
 
@@ -89,16 +77,22 @@ def dir_listing():
   except:
     print "error occured"
 
-def csp_validation():
-  print ('*' * 10) + "Testing CSP validation" + ('*' * 10),"\n"
+#validate possible CSP bypass and print response headers
+def csp_validation_with_headers():
+  
   url = 'http://' + site_name
   headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
   response = requests.get(url, headers=headers)
+  print "\n"+('*' * 10) + "Headers" + ('*' * 10),"\n"
+
+  for i in response.headers:
+    print i," : ",response.headers[i],"\n"
   
   google_bypass = "http://ajax.googleapis.com"
   cloudfront_bypass = "https://*.cloudfront.net"
 
+  print ('*' * 10) + "Testing CSP validation" + ('*' * 10),"\n"
 
   try:
     csp_header1 = response.headers['content-security-policy']
@@ -106,7 +100,7 @@ def csp_validation():
     if (google_bypass or cloudfront_bypass) in processed_csp:
       print "CSP bypass possible"
     else:
-      print "valid CSP so far.."
+      print "valid CSP so far..\n"
 
   except KeyError:
     pass
@@ -124,12 +118,11 @@ def csp_validation():
 
 
 #functions calls
-get_headers()
+csp_validation_with_headers()
 clickjacking()
 same_site()
 spf_dmarc()
 admin_page()
-csp_validation()
 dir_listing()
 
 
