@@ -28,7 +28,7 @@ def same_site():
 
 #testing SPF and DMARC records
 def spf_dmarc():
-  print "\n",('*' * 10) + "Testing SPF and DMARC records" + ('*' * 10),"\n"
+  print "\n",('*' * 10) + "Testing SPF records" + ('*' * 10),"\n"
 
   os.system('dig txt ' + site_name)
 
