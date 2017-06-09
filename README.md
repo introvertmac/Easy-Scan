@@ -34,7 +34,7 @@ Following code makes multiple requests through different function, can be optimi
 
 [The MIT License Copyright](https://opensource.org/licenses/MIT) (c) 2017 Manish Bhattacharya
 
-#Contact
+# Contact
 If you have any queries, feel free to reach out at my Twitter [Manish Bhattacharya](https://twitter.com/introvertmac007)
 
 
