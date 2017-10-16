@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 
 site_name=raw_input("enter the website name without https:// or www\n")
 
+#this is a test and done
 #Test for Clickjacking protections 
 
 def clickjacking():
