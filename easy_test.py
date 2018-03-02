@@ -39,18 +39,28 @@ def spf_dmarc():
 
 #Testing for admin page
 def admin_page():
+	results = []
+	print ('*' * 10) + "Admin page testing" + ('*' * 10),"\n"
+	try:
+		with open("adminLogins.txt", "r") as f:
+			for line in f.readlines():
+				admin_page = "http://" + site_name + line
+				admin_request = requests.get(admin_page)
+				if admin_request.status_code==200:
+					results.append(admin_page)
+				else:
+				  	print "Could not find " + line + "page on site " + site_name
+	except Exception as e:
+		print "Unable to locate the admin logins file."
 
-  print ('*' * 10) + "Admin page testing" + ('*' * 10),"\n"
-
-  admin_page = "http://"+site_name+"/admin"
-  admin_request = requests.get(admin_page)
-
-  if admin_request.status_code==200:
-    print admin_request.history
-    print "visit the admin page", admin_page
-  else:
-    print "admin page is protected"
-
+	print ('*' * 10) + "Admin page testing concluded, summary:" + ('*' * 10),"\n"
+	if len(results) == 0:
+		print "No admin pages were found."
+	else:
+		print "The following admin pages were found: "
+		for result in results:
+			print result
+			
 #Testing for directory listing
 def dir_listing():
   get_headers= requests.get("http://"+str(site_name))
