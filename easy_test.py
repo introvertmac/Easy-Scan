@@ -48,8 +48,6 @@ def admin_page():
 				admin_request = requests.get(admin_page)
 				if admin_request.status_code==200:
 					results.append(admin_page)
-				else:
-				  	print "Could not find " + line + "page on site " + site_name
 	except Exception as e:
 		print "Unable to locate the admin logins file."
 
